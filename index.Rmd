@@ -14,7 +14,6 @@ description: "Data Exploration in R"
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 library(tidyverse)
-library(knitr)
 library(gt)
 #theme_set(theme_classic())
 ```
@@ -26,7 +25,6 @@ This book provides an introduction to data exploration in R. To use the code in 
 
 ```{r}
 library(tidyverse)
-library(skimr)
 library(gt)
 ```
 

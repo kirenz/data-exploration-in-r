@@ -18,7 +18,7 @@ Get an overview of the variable `maritl` and sort the values. We use the package
 
 wage_df %>% 
   count(maritl,
-  sort = TRUE) %>% 
+        sort = TRUE) %>% 
   gt()
 
 ```
@@ -28,7 +28,8 @@ Get an overview of the combined variables `maritl` and `education` and sort the 
 ```{r count-two}
 
 wage_df %>% 
-  count(maritl, education) %>% 
+  count(maritl, education,
+        sort= TRUE) %>% 
   gt()
 
 ```

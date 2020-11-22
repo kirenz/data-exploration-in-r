@@ -135,7 +135,6 @@ This book provides an introduction to data exploration in R. To use the code in 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(tidyverse)}
-\KeywordTok{library}\NormalTok{(skimr)}
 \KeywordTok{library}\NormalTok{(gt)}
 \end{Highlighting}
 \end{Shaded}
@@ -210,7 +209,7 @@ Get an overview of the variable \texttt{maritl} and sort the values. We use the 
 \begin{Highlighting}[]
 \NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
 \StringTok{  }\KeywordTok{count}\NormalTok{(maritl,}
-  \DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
+        \DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
 \StringTok{  }\KeywordTok{gt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -233,7 +232,8 @@ Get an overview of the combined variables \texttt{maritl} and \texttt{education}
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{count}\NormalTok{(maritl, education) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(maritl, education,}
+        \DataTypeTok{sort=} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
 \StringTok{  }\KeywordTok{gt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -243,30 +243,30 @@ Get an overview of the combined variables \texttt{maritl} and \texttt{education}
 \toprule
 maritl & education & n \\ 
 \midrule
-1. Never Married & 1. < HS Grad & 62 \\ 
+2. Married & 2. HS Grad & 651 \\ 
+2. Married & 4. College Grad & 487 \\ 
+2. Married & 3. Some College & 421 \\ 
+2. Married & 5. Advanced Degree & 341 \\ 
 1. Never Married & 2. HS Grad & 219 \\ 
+2. Married & 1. < HS Grad & 174 \\ 
 1. Never Married & 3. Some College & 164 \\ 
 1. Never Married & 4. College Grad & 143 \\ 
-1. Never Married & 5. Advanced Degree & 60 \\ 
-2. Married & 1. < HS Grad & 174 \\ 
-2. Married & 2. HS Grad & 651 \\ 
-2. Married & 3. Some College & 421 \\ 
-2. Married & 4. College Grad & 487 \\ 
-2. Married & 5. Advanced Degree & 341 \\ 
-3. Widowed & 1. < HS Grad & 2 \\ 
-3. Widowed & 2. HS Grad & 8 \\ 
-3. Widowed & 3. Some College & 2 \\ 
-3. Widowed & 4. College Grad & 5 \\ 
-3. Widowed & 5. Advanced Degree & 2 \\ 
-4. Divorced & 1. < HS Grad & 16 \\ 
 4. Divorced & 2. HS Grad & 73 \\ 
+1. Never Married & 1. < HS Grad & 62 \\ 
+1. Never Married & 5. Advanced Degree & 60 \\ 
 4. Divorced & 3. Some College & 52 \\ 
 4. Divorced & 4. College Grad & 41 \\ 
 4. Divorced & 5. Advanced Degree & 22 \\ 
-5. Separated & 1. < HS Grad & 14 \\ 
 5. Separated & 2. HS Grad & 20 \\ 
+4. Divorced & 1. < HS Grad & 16 \\ 
+5. Separated & 1. < HS Grad & 14 \\ 
 5. Separated & 3. Some College & 11 \\ 
 5. Separated & 4. College Grad & 9 \\ 
+3. Widowed & 2. HS Grad & 8 \\ 
+3. Widowed & 4. College Grad & 5 \\ 
+3. Widowed & 1. < HS Grad & 2 \\ 
+3. Widowed & 3. Some College & 2 \\ 
+3. Widowed & 5. Advanced Degree & 2 \\ 
 5. Separated & 5. Advanced Degree & 1 \\ 
 \bottomrule
 \end{longtable}
