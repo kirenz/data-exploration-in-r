@@ -219,65 +219,1246 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this chapter you will learn how to do some simple data explorations for categorical variables using tables (also called tables) and simple counts.</p>
 <div id="simple-counts" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Simple counts</h2>
-<p>Get an overview of the variable <code>maritl</code> and sort the values:</p>
+<p>Get an overview of the variable <code>maritl</code> and sort the values. We use the function gt() to print nice tables:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tables.html#cb3-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb3-2"><a href="tables.html#cb3-2"></a><span class="st">  </span><span class="kw">count</span>(maritl,</span>
-<span id="cb3-3"><a href="tables.html#cb3-3"></a>  <span class="dt">sort =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 2
-##   maritl               n
-##   &lt;chr&gt;            &lt;int&gt;
-## 1 2. Married        2074
-## 2 1. Never Married   648
-## 3 4. Divorced        204
-## 4 5. Separated        55
-## 5 3. Widowed          19</code></pre>
-<p>Get an overview of the combined variables <code>maritl</code> and <code>education</code> and sort the values:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tables.html#cb5-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-2"><a href="tables.html#cb5-2"></a><span class="st">  </span><span class="kw">count</span>(maritl, education)</span></code></pre></div>
-<pre><code>## # A tibble: 25 x 3
-##    maritl           education              n
-##    &lt;chr&gt;            &lt;chr&gt;              &lt;int&gt;
-##  1 1. Never Married 1. &lt; HS Grad          62
-##  2 1. Never Married 2. HS Grad           219
-##  3 1. Never Married 3. Some College      164
-##  4 1. Never Married 4. College Grad      143
-##  5 1. Never Married 5. Advanced Degree    60
-##  6 2. Married       1. &lt; HS Grad         174
-##  7 2. Married       2. HS Grad           651
-##  8 2. Married       3. Some College      421
-##  9 2. Married       4. College Grad      487
-## 10 2. Married       5. Advanced Degree   341
-## # … with 15 more rows</code></pre>
+<span id="cb3-3"><a href="tables.html#cb3-3"></a>  <span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-4"><a href="tables.html#cb3-4"></a><span class="st">  </span><span class="kw">gt</span>()</span></code></pre></div>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ilrifkpjso .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ilrifkpjso .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ilrifkpjso .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ilrifkpjso .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ilrifkpjso .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ilrifkpjso .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ilrifkpjso .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ilrifkpjso .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ilrifkpjso .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ilrifkpjso .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ilrifkpjso .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ilrifkpjso .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ilrifkpjso .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ilrifkpjso .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ilrifkpjso .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ilrifkpjso .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ilrifkpjso .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#ilrifkpjso .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ilrifkpjso .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#ilrifkpjso .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ilrifkpjso .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ilrifkpjso .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ilrifkpjso .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ilrifkpjso .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ilrifkpjso .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ilrifkpjso .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ilrifkpjso .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ilrifkpjso .gt_left {
+  text-align: left;
+}
+
+#ilrifkpjso .gt_center {
+  text-align: center;
+}
+
+#ilrifkpjso .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ilrifkpjso .gt_font_normal {
+  font-weight: normal;
+}
+
+#ilrifkpjso .gt_font_bold {
+  font-weight: bold;
+}
+
+#ilrifkpjso .gt_font_italic {
+  font-style: italic;
+}
+
+#ilrifkpjso .gt_super {
+  font-size: 65%;
+}
+
+#ilrifkpjso .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="ilrifkpjso" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">maritl</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">n</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">2. Married</td>
+      <td class="gt_row gt_center">2074</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">1. Never Married</td>
+      <td class="gt_row gt_center">648</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">4. Divorced</td>
+      <td class="gt_row gt_center">204</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">5. Separated</td>
+      <td class="gt_row gt_center">55</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">3. Widowed</td>
+      <td class="gt_row gt_center">19</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<p>Get an overview of the combined variables <code>maritl</code> and <code>education</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tables.html#cb4-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-2"><a href="tables.html#cb4-2"></a><span class="st">  </span><span class="kw">count</span>(maritl, education) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-3"><a href="tables.html#cb4-3"></a><span class="st">   </span><span class="kw">gt</span>()</span></code></pre></div>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#iwmrewmmns .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#iwmrewmmns .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#iwmrewmmns .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#iwmrewmmns .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#iwmrewmmns .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iwmrewmmns .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#iwmrewmmns .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#iwmrewmmns .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#iwmrewmmns .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#iwmrewmmns .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#iwmrewmmns .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#iwmrewmmns .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#iwmrewmmns .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#iwmrewmmns .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#iwmrewmmns .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#iwmrewmmns .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#iwmrewmmns .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#iwmrewmmns .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iwmrewmmns .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#iwmrewmmns .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iwmrewmmns .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#iwmrewmmns .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#iwmrewmmns .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iwmrewmmns .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#iwmrewmmns .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#iwmrewmmns .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#iwmrewmmns .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#iwmrewmmns .gt_left {
+  text-align: left;
+}
+
+#iwmrewmmns .gt_center {
+  text-align: center;
+}
+
+#iwmrewmmns .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#iwmrewmmns .gt_font_normal {
+  font-weight: normal;
+}
+
+#iwmrewmmns .gt_font_bold {
+  font-weight: bold;
+}
+
+#iwmrewmmns .gt_font_italic {
+  font-style: italic;
+}
+
+#iwmrewmmns .gt_super {
+  font-size: 65%;
+}
+
+#iwmrewmmns .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="iwmrewmmns" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">maritl</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">education</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">n</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">1. Never Married</td>
+      <td class="gt_row gt_left">1. &lt; HS Grad</td>
+      <td class="gt_row gt_center">62</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">1. Never Married</td>
+      <td class="gt_row gt_left">2. HS Grad</td>
+      <td class="gt_row gt_center">219</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">1. Never Married</td>
+      <td class="gt_row gt_left">3. Some College</td>
+      <td class="gt_row gt_center">164</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">1. Never Married</td>
+      <td class="gt_row gt_left">4. College Grad</td>
+      <td class="gt_row gt_center">143</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">1. Never Married</td>
+      <td class="gt_row gt_left">5. Advanced Degree</td>
+      <td class="gt_row gt_center">60</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">2. Married</td>
+      <td class="gt_row gt_left">1. &lt; HS Grad</td>
+      <td class="gt_row gt_center">174</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">2. Married</td>
+      <td class="gt_row gt_left">2. HS Grad</td>
+      <td class="gt_row gt_center">651</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">2. Married</td>
+      <td class="gt_row gt_left">3. Some College</td>
+      <td class="gt_row gt_center">421</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">2. Married</td>
+      <td class="gt_row gt_left">4. College Grad</td>
+      <td class="gt_row gt_center">487</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">2. Married</td>
+      <td class="gt_row gt_left">5. Advanced Degree</td>
+      <td class="gt_row gt_center">341</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">3. Widowed</td>
+      <td class="gt_row gt_left">1. &lt; HS Grad</td>
+      <td class="gt_row gt_center">2</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">3. Widowed</td>
+      <td class="gt_row gt_left">2. HS Grad</td>
+      <td class="gt_row gt_center">8</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">3. Widowed</td>
+      <td class="gt_row gt_left">3. Some College</td>
+      <td class="gt_row gt_center">2</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">3. Widowed</td>
+      <td class="gt_row gt_left">4. College Grad</td>
+      <td class="gt_row gt_center">5</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">3. Widowed</td>
+      <td class="gt_row gt_left">5. Advanced Degree</td>
+      <td class="gt_row gt_center">2</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">4. Divorced</td>
+      <td class="gt_row gt_left">1. &lt; HS Grad</td>
+      <td class="gt_row gt_center">16</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">4. Divorced</td>
+      <td class="gt_row gt_left">2. HS Grad</td>
+      <td class="gt_row gt_center">73</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">4. Divorced</td>
+      <td class="gt_row gt_left">3. Some College</td>
+      <td class="gt_row gt_center">52</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">4. Divorced</td>
+      <td class="gt_row gt_left">4. College Grad</td>
+      <td class="gt_row gt_center">41</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">4. Divorced</td>
+      <td class="gt_row gt_left">5. Advanced Degree</td>
+      <td class="gt_row gt_center">22</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">5. Separated</td>
+      <td class="gt_row gt_left">1. &lt; HS Grad</td>
+      <td class="gt_row gt_center">14</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">5. Separated</td>
+      <td class="gt_row gt_left">2. HS Grad</td>
+      <td class="gt_row gt_center">20</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">5. Separated</td>
+      <td class="gt_row gt_left">3. Some College</td>
+      <td class="gt_row gt_center">11</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">5. Separated</td>
+      <td class="gt_row gt_left">4. College Grad</td>
+      <td class="gt_row gt_center">9</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">5. Separated</td>
+      <td class="gt_row gt_left">5. Advanced Degree</td>
+      <td class="gt_row gt_center">1</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
 <p>Obtain the sum of a quantitative variable (<code>wage</code>) for the different levels of a categorical variable (<code>maritl</code>):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="tables.html#cb7-1"></a>wage_df <span class="op">%&gt;%</span><span class="st">  </span></span>
-<span id="cb7-2"><a href="tables.html#cb7-2"></a><span class="st">  </span><span class="kw">count</span>(maritl,</span>
-<span id="cb7-3"><a href="tables.html#cb7-3"></a>        <span class="dt">wt =</span> wage,</span>
-<span id="cb7-4"><a href="tables.html#cb7-4"></a>        <span class="dt">name =</span> <span class="st">&quot;Sum&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 2
-##   maritl               Sum
-##   &lt;chr&gt;              &lt;dbl&gt;
-## 1 1. Never Married  60092.
-## 2 2. Married       246516.
-## 3 3. Widowed         1891.
-## 4 4. Divorced       21044.
-## 5 5. Separated       5567.</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tables.html#cb5-1"></a>wage_df <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb5-2"><a href="tables.html#cb5-2"></a><span class="st">  </span><span class="kw">count</span>(maritl,</span>
+<span id="cb5-3"><a href="tables.html#cb5-3"></a>        <span class="dt">wt =</span> wage,</span>
+<span id="cb5-4"><a href="tables.html#cb5-4"></a>        <span class="dt">name =</span> <span class="st">&quot;Wage_sum&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-5"><a href="tables.html#cb5-5"></a><span class="st">  </span><span class="kw">gt</span>()</span></code></pre></div>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#rctqlszdxo .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#rctqlszdxo .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rctqlszdxo .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#rctqlszdxo .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#rctqlszdxo .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rctqlszdxo .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rctqlszdxo .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#rctqlszdxo .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#rctqlszdxo .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#rctqlszdxo .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#rctqlszdxo .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#rctqlszdxo .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rctqlszdxo .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rctqlszdxo .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#rctqlszdxo .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#rctqlszdxo .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#rctqlszdxo .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#rctqlszdxo .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rctqlszdxo .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#rctqlszdxo .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rctqlszdxo .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#rctqlszdxo .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#rctqlszdxo .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rctqlszdxo .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rctqlszdxo .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#rctqlszdxo .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rctqlszdxo .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#rctqlszdxo .gt_left {
+  text-align: left;
+}
+
+#rctqlszdxo .gt_center {
+  text-align: center;
+}
+
+#rctqlszdxo .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#rctqlszdxo .gt_font_normal {
+  font-weight: normal;
+}
+
+#rctqlszdxo .gt_font_bold {
+  font-weight: bold;
+}
+
+#rctqlszdxo .gt_font_italic {
+  font-style: italic;
+}
+
+#rctqlszdxo .gt_super {
+  font-size: 65%;
+}
+
+#rctqlszdxo .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="rctqlszdxo" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">maritl</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Wage_sum</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">1. Never Married</td>
+      <td class="gt_row gt_right">60092.052</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">2. Married</td>
+      <td class="gt_row gt_right">246516.180</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">3. Widowed</td>
+      <td class="gt_row gt_right">1891.234</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">4. Divorced</td>
+      <td class="gt_row gt_right">21044.489</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">5. Separated</td>
+      <td class="gt_row gt_right">5566.868</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
 </div>
 <div id="total-counts" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Total counts</h2>
 <p>Total counts are an useful way to represent the observations that fall into each combination of the levels of categorical variables. We create a contingency table of the two categorical variables <code>jobclass</code> and <code>race</code> and call the result <code>tab</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="tables.html#cb9-1"></a>tab &lt;-<span class="st"> </span><span class="kw">table</span>(wage_df<span class="op">$</span>jobclass, wage_df<span class="op">$</span>race)</span>
-<span id="cb9-2"><a href="tables.html#cb9-2"></a>tab</span></code></pre></div>
-<pre><code>##                 
-##                  1. White 2. Black 3. Asian 4. Other
-##   1. Industrial      1325      111       86       22
-##   2. Information     1155      182      104       15</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="tables.html#cb6-1"></a>tab &lt;-<span class="st"> </span><span class="kw">table</span>(wage_df<span class="op">$</span>jobclass, wage_df<span class="op">$</span>race)</span></code></pre></div>
 </div>
 <div id="joint-proportions" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> Joint proportions</h2>
 <p>We can also view the percentage of each cell in relation to the total amount of all observations (here n = 3000). Therefore, you have to simply divide the numbers from our total counts with 3.000.</p>
 <p>The following code generates tables of <em>joint</em> proportions:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="tables.html#cb11-1"></a><span class="co"># joint proportions</span></span>
-<span id="cb11-2"><a href="tables.html#cb11-2"></a><span class="kw">prop.table</span>(tab) </span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="tables.html#cb7-1"></a><span class="co"># joint proportions</span></span>
+<span id="cb7-2"><a href="tables.html#cb7-2"></a><span class="kw">prop.table</span>(tab)</span></code></pre></div>
 <pre><code>##                 
 ##                     1. White    2. Black    3. Asian    4. Other
 ##   1. Industrial  0.441666667 0.037000000 0.028666667 0.007333333
@@ -288,8 +1469,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">1.4</span> Conditional proportions: columns</h2>
 <p>You also may want to know the probability that workers have a certain jobclass, given that they have a particular ethnical background. This is a so called conditional probability. Conditional probability represents the chance that one event will occur given that a second event has already occurred.</p>
 <p>The following code generates tables of <em>conditional</em> proportions:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="tables.html#cb13-1"></a><span class="co"># conditional on columns</span></span>
-<span id="cb13-2"><a href="tables.html#cb13-2"></a><span class="kw">prop.table</span>(tab, <span class="dv">2</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="tables.html#cb9-1"></a><span class="co"># conditional on columns</span></span>
+<span id="cb9-2"><a href="tables.html#cb9-2"></a><span class="kw">prop.table</span>(tab, <span class="dv">2</span>)  </span></code></pre></div>
 <pre><code>##                 
 ##                   1. White  2. Black  3. Asian  4. Other
 ##   1. Industrial  0.5342742 0.3788396 0.4526316 0.5945946
@@ -303,8 +1484,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="conditional-proportions-rows" class="section level2" number="1.5">
 <h2><span class="header-section-number">1.5</span> Conditional proportions: rows</h2>
 <p>Now we want to obtain the probability that workers have a certain race, given their jobclass.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="tables.html#cb15-1"></a><span class="co"># conditional on rows</span></span>
-<span id="cb15-2"><a href="tables.html#cb15-2"></a><span class="kw">prop.table</span>(tab, <span class="dv">1</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="tables.html#cb11-1"></a><span class="co"># conditional on rows</span></span>
+<span id="cb11-2"><a href="tables.html#cb11-2"></a><span class="kw">prop.table</span>(tab, <span class="dv">1</span>)  </span></code></pre></div>
 <pre><code>##                 
 ##                    1. White   2. Black   3. Asian   4. Other
 ##   1. Industrial  0.85816062 0.07189119 0.05569948 0.01424870
@@ -318,7 +1499,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="chi-squared-test-of-independence" class="section level2" number="1.6">
 <h2><span class="header-section-number">1.6</span> Chi-squared Test of Independence</h2>
 <p>Finally, let’s test the hypothesis whether the variable <code>jobclass</code> is independent of the variable <code>race</code> at .05 significance level.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="tables.html#cb17-1"></a><span class="kw">chisq.test</span>(tab)  </span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="tables.html#cb13-1"></a><span class="kw">chisq.test</span>(tab)  </span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 

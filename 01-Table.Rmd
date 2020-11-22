@@ -12,22 +12,24 @@ In this chapter you will learn how to do some simple data explorations for categ
 
 ## Simple counts 
 
-Get an overview of the variable `maritl` and sort the values:
+Get an overview of the variable `maritl` and sort the values. We use the function gt() to print nice tables:
 
 ```{r count-one}
 
 wage_df %>% 
   count(maritl,
-  sort = TRUE)
+  sort = TRUE) %>% 
+  gt()
 
 ```
 
-Get an overview of the combined variables `maritl` and `education` and sort the values:
+Get an overview of the combined variables `maritl` and `education`:
 
 ```{r count-two}
 
 wage_df %>% 
-  count(maritl, education)
+  count(maritl, education) %>% 
+   gt()
 
 ```
 
@@ -38,7 +40,8 @@ Obtain the sum of a quantitative variable (`wage`) for the different levels of a
 wage_df %>%  
   count(maritl,
         wt = wage,
-        name = "Sum")
+        name = "Wage_sum") %>% 
+  gt()
 
 ```
 
@@ -49,7 +52,6 @@ Total counts are an useful way to represent the observations that fall into each
 ```{r tab}
 
 tab <- table(wage_df$jobclass, wage_df$race)
-tab
 
 ```
 
@@ -62,7 +64,7 @@ The following code generates tables of *joint* proportions:
 ```{r prop-tab}
 
 # joint proportions
-prop.table(tab) 
+prop.table(tab)
 
 ```
 

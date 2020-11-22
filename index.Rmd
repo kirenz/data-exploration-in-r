@@ -15,6 +15,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 library(tidyverse)
 library(knitr)
+library(gt)
 #theme_set(theme_classic())
 ```
 
@@ -26,6 +27,7 @@ This book provides an introduction to data exploration in R. To use the code in 
 ```{r}
 library(tidyverse)
 library(skimr)
+library(gt)
 ```
 
 
@@ -61,6 +63,3 @@ Note that this book mainly covers the use of a collection of R packages called t
 ***
 
 This online book is licensed using the [Creative Commons Attribution-NonCommercial 2.0 Generic (CC BY-NC 2.0) License](https://creativecommons.org/licenses/by-nc/2.0/). 
-
-
-\
