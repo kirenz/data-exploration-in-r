@@ -221,25 +221,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="basic-histogram" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Basic Histogram</h3>
 <p>Basic plot:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="histogram.html#cb24-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-2"><a href="histogram.html#cb24-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wage)) <span class="op">+</span></span>
-<span id="cb24-3"><a href="histogram.html#cb24-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="histogram.html#cb28-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb28-2"><a href="histogram.html#cb28-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wage)) <span class="op">+</span></span>
+<span id="cb28-3"><a href="histogram.html#cb28-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
 <p><img src="exploration_files/figure-html/hist-1-1.png" width="672" /></p>
 </div>
 <div id="bins" class="section level3" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Bins</h3>
 <p>Adjust number of bins:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="histogram.html#cb25-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-2"><a href="histogram.html#cb25-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wage)) <span class="op">+</span></span>
-<span id="cb25-3"><a href="histogram.html#cb25-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="histogram.html#cb29-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb29-2"><a href="histogram.html#cb29-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wage)) <span class="op">+</span></span>
+<span id="cb29-3"><a href="histogram.html#cb29-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">20</span>)</span></code></pre></div>
 <p><img src="exploration_files/figure-html/hist-bins-1.png" width="672" /></p>
 </div>
 <div id="binwidth" class="section level3" number="4.1.3">
 <h3><span class="header-section-number">4.1.3</span> Binwidth</h3>
 <p>Instead of using bins, you can also change the binwidth:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="histogram.html#cb26-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-2"><a href="histogram.html#cb26-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wage)) <span class="op">+</span></span>
-<span id="cb26-3"><a href="histogram.html#cb26-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="histogram.html#cb30-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb30-2"><a href="histogram.html#cb30-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wage)) <span class="op">+</span></span>
+<span id="cb30-3"><a href="histogram.html#cb30-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>)</span></code></pre></div>
 <p><img src="exploration_files/figure-html/hist-binwidth-1.png" width="672" /></p>
 </div>
 </div>
@@ -247,17 +247,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.2</span> Two variables</h2>
 <div id="faceted-histogram" class="section level3" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Faceted histogram</h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="histogram.html#cb27-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-2"><a href="histogram.html#cb27-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wage)) <span class="op">+</span></span>
-<span id="cb27-3"><a href="histogram.html#cb27-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span></span>
-<span id="cb27-4"><a href="histogram.html#cb27-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>education)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="histogram.html#cb31-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb31-2"><a href="histogram.html#cb31-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wage)) <span class="op">+</span></span>
+<span id="cb31-3"><a href="histogram.html#cb31-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span></span>
+<span id="cb31-4"><a href="histogram.html#cb31-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>education)</span></code></pre></div>
 <p><img src="exploration_files/figure-html/hist-facet-1.png" width="672" /></p>
 </div>
 <div id="stacked-histogram" class="section level3" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Stacked histogram</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="histogram.html#cb28-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-2"><a href="histogram.html#cb28-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wage, <span class="dt">fill =</span> education)) <span class="op">+</span></span>
-<span id="cb28-3"><a href="histogram.html#cb28-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">alpha =</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="histogram.html#cb32-1"></a>wage_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-2"><a href="histogram.html#cb32-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wage, <span class="dt">fill =</span> education)) <span class="op">+</span></span>
+<span id="cb32-3"><a href="histogram.html#cb32-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">alpha =</span> <span class="fl">0.4</span>)</span></code></pre></div>
 <p><img src="exploration_files/figure-html/hist-stacked-1.png" width="672" /></p>
 
 </div>
