@@ -1,0 +1,33 @@
+# Heatmap {#heatmap}
+
+:::note
+You should use this method if the data is:
+
+- Categorical
+:::
+
+In this chapter you will learn how to do some simple data explorations for categorical variables using heatmaps with the function [geom_bin2d()](https://ggplot2.tidyverse.org/reference/geom_bin2d.html)
+
+Basic plot:
+
+```{r heat}
+
+wage_df %>%
+  ggplot(aes(jobclass, education)) +
+  geom_bin2d() +
+  scale_fill_gradient(low = "gray85", high = "steelblue") 
+
+```
+
+Plot with some adjustments:
+
+```{r heat-2}
+
+wage_df %>%
+  ggplot(aes(jobclass, education)) +
+  geom_bin2d(binwidth = c(1, 1), alpha = 0.8) +
+  theme_classic() + 
+  scale_fill_gradient(low = "gray85", high = "steelblue") +
+  labs(fill = "number of\ workers", y = "Education", x = "Job class")
+
+```

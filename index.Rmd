@@ -1,0 +1,66 @@
+--- 
+title: "Data Exploration in R"
+author: "Prof. Dr. Jan Kirenz"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "Data Exploration in R"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+
+library(tidyverse)
+library(knitr)
+#theme_set(theme_classic())
+```
+
+
+# Welcome {-}
+
+This book provides an introduction to data exploration in R. To use the code in this book, activate the following packages: 
+
+```{r}
+library(tidyverse)
+library(skimr)
+```
+
+
+To illustrate the different data exploration methods, we use the dataset `wage`, which contains wage and other data for a group of 3000 male workers in the Mid-Atlantic region (@James2000).
+
+```{r}
+library(tidyverse)
+
+wage_df <- read_csv("https://raw.githubusercontent.com/kirenz/datasets/master/wage.csv")
+
+```
+
+
+The data frame includes 3000 observations on the following 11 variables:
+
+* `X1`: An ID variable
+* `year`: Year that wage information was recorded
+* `age`: Age of worker
+* `maritl`: A factor with levels: 1. Never Married 2. Married 3. Widowed 4. Divorced and 5. Separated indicating marital status
+* `race`: A factor with levels: 1. White 2. Black 3. Asian and 4. Other indicating race
+* `education`: A factor with levels: 1. < HS Grad 2. HS Grad 3. Some College 4. College Grad and 5. Advanced Degree indicating education level
+* `region`: Region of the country (mid-atlantic only)
+* `jobclass`: A factor with levels: 1. Industrial and 2. Information indicating type of job
+* `health`: A factor with levels: 1. <=Good and 2. >=Very Good indicating health level of worker
+* `health_ins`: A factor with levels: 1. Yes and 2. No indicating whether worker has health insurance
+* `logwage`: Log of workers wage
+* `wage`: Workers raw wage
+
+
+Note that this book mainly covers the use of a collection of R packages called the [tidyverse](https://www.tidyverse.org), an ecosystem of packages designed with common APIs and a shared philosophy. An R package is simply a bundle of functions, documentation, and data sets. There are about 25 packages in the tidyverse and they are especially designed for data science and share an underlying design philosophy, grammar, and data structures.
+
+
+***
+
+This online book is licensed using the [Creative Commons Attribution-NonCommercial 2.0 Generic (CC BY-NC 2.0) License](https://creativecommons.org/licenses/by-nc/2.0/). 
+
+
+\

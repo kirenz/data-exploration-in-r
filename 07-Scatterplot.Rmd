@@ -1,0 +1,40 @@
+# Scatterplot {#scatterplot}
+
+
+:::note
+You should use this method if the data is:
+
+- Numerical 
+:::
+
+
+
+## Two numeric variables
+
+```{r}
+
+wage_df %>% 
+  ggplot(aes(x = age, y = wage)) +
+  geom_point()
+
+```
+
+Use jitter
+
+```{r}
+
+wage_df %>% 
+  ggplot(aes(x = age, y = wage)) +
+  geom_jitter()
+
+```
+
+## Two numeric, one categorical
+
+```{r}
+
+wage_df %>% 
+  ggplot(aes(x = age, y = wage, color = jobclass)) +
+  geom_jitter()
+
+```

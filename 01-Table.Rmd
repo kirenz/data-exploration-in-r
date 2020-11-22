@@ -1,0 +1,119 @@
+# Counts and Tables {#tables}
+
+
+:::note
+You should use this method if the data is:
+
+- Categorical
+:::
+
+In this chapter you will learn how to do some simple data explorations for categorical variables using tables (also called  tables) and simple counts. 
+
+
+## Simple counts 
+
+Get an overview of the variable `maritl` and sort the values:
+
+```{r count-one}
+
+wage_df %>% 
+  count(maritl,
+  sort = TRUE)
+
+```
+
+Get an overview of the combined variables `maritl` and `education` and sort the values:
+
+```{r count-two}
+
+wage_df %>% 
+  count(maritl, education)
+
+```
+
+Obtain the sum of a quantitative variable (`wage`) for the different levels of a categorical variable (`maritl`):
+
+```{r count-numeric}
+
+wage_df %>%  
+  count(maritl,
+        wt = wage,
+        name = "Sum")
+
+```
+
+## Total counts
+
+Total counts are an useful way to represent the observations that fall into each combination of the levels of categorical variables. We create a contingency table of the two categorical variables `jobclass` and `race` and call the result `tab`:
+
+```{r tab}
+
+tab <- table(wage_df$jobclass, wage_df$race)
+tab
+
+```
+
+## Joint proportions
+
+We can also view the percentage of each cell in relation to the total amount of all observations (here n = 3000). Therefore, you have to simply divide the numbers from our total counts with 3.000.
+
+The following code generates tables of *joint* proportions:
+
+```{r prop-tab}
+
+# joint proportions
+prop.table(tab) 
+
+```
+
+For example, around 44% of all people in the dataset are white industrial workers.
+
+
+## Conditional proportions: columns
+
+You also may want to know the probability that workers have a certain jobclass, given that they have a particular ethnical background. This is a so called conditional probability. Conditional probability represents the chance that one event will occur given that a second event has already occurred. 
+
+The following code generates tables of *conditional* proportions:
+
+```{r prop-tab-col}
+
+# conditional on columns
+prop.table(tab, 2)  
+
+```
+
+We performed a columnwise evaluation and are now able to answer the following question: 
+
+* Approximately what proportion of all white workers are industrial workers? 
+* The answer is: around 53%. 
+
+## Conditional proportions: rows
+
+Now we want to obtain the probability that workers have a certain race, given their jobclass. 
+
+
+```{r prop-tab-row}
+
+# conditional on rows
+prop.table(tab, 1)  
+
+```
+
+We performed a rowwise evaluation and are now able to answer the following question: 
+
+* Approximately what proportion of all industrial workers are white? 
+* The answer is: around 86%. 
+
+
+## Chi-squared Test of Independence
+
+Finally, let's test the hypothesis whether the variable `jobclass` is independent of the variable `race` at .05 significance level.
+
+
+```{r chi-sq}
+
+chisq.test(tab)  
+
+```
+
+As the p-value is smaller than the .05 significance level, we reject the null hypothesis that the jobclass is independent of the race of the workers. 

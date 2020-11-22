@@ -1,0 +1,14 @@
+# Line graph {#line}
+
+
+```{r}
+
+wage_df %>%  
+  group_by(year) %>%  
+  mutate(mean_wage = mean(wage, na.rm = TRUE)) %>%  
+  ungroup() %>% 
+  ggplot(aes(x = year, y = mean_wage)) + 
+  geom_line() 
+  
+```
+

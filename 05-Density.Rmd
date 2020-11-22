@@ -1,0 +1,43 @@
+# Density plots {#density}
+
+
+:::note
+You should use this method if the data is:
+
+- Numeric and continuous
+:::
+
+In this chapter you will learn how to do some simple data explorations for numerical variables using density plots. 
+
+## One variable
+
+```{r}
+
+wage_df %>% 
+  ggplot(aes(x = wage)) +
+  geom_density()
+
+```
+
+## Two variables
+
+Combine your numeric variable with a categorical variable:
+
+```{r}
+
+wage_df %>% 
+  ggplot(aes(x = wage, fill = education)) + 
+  geom_density() 
+
+```
+
+Make some adjustments:
+
+```{r}
+
+wage_df %>% 
+  ggplot(aes(x = wage, fill = education)) +
+  geom_density(alpha = 0.6) +
+  scale_fill_brewer(palette = "Blues")
+
+```

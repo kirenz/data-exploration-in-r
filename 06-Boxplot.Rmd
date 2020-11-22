@@ -1,0 +1,32 @@
+# Boxplot {#boxplot}
+
+
+:::note
+You should use this method if the data is:
+
+- Categorical (at least ordinal) or
+- Numerical
+:::
+
+In this chapter you will learn how to do some simple data explorations for categorical (ordinal) and numerical variables using boxplots. 
+
+## One variable
+
+```{r}
+
+wage_df %>% 
+  ggplot(aes( x = "", y= wage)) + 
+  geom_boxplot() 
+
+```
+
+## Two variables
+
+
+```{r}
+
+wage_df %>% 
+  ggplot(aes(x = education, y = wage)) + 
+  geom_boxplot()
+
+```

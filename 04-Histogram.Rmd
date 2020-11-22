@@ -1,0 +1,71 @@
+# Histogram {#histogram}
+
+:::note
+You should use this method if the data is:
+
+- Numeric
+:::
+
+## One variable
+
+### Basic Histogram
+
+Basic plot:
+
+```{r hist-1}
+
+wage_df %>% 
+  ggplot(aes(x = wage)) +
+  geom_histogram()
+
+```
+
+### Bins
+
+Adjust number of bins:
+
+```{r hist-bins}
+
+wage_df %>% 
+  ggplot(aes(x = wage)) +
+  geom_histogram(bins = 20)
+
+```
+
+### Binwidth
+
+Instead of using bins, you can also change the binwidth:
+
+```{r hist-binwidth}
+
+wage_df %>% 
+  ggplot(aes(x = wage)) +
+  geom_histogram(binwidth = 10)
+
+```
+
+
+## Two variables
+
+### Faceted histogram
+
+```{r hist-facet}
+
+wage_df %>% 
+  ggplot(aes(x = wage)) +
+  geom_histogram() +
+  facet_wrap( ~ education)
+
+```
+
+
+### Stacked histogram
+
+```{r hist-stacked}
+
+wage_df %>% 
+  ggplot(aes(x = wage, fill = education)) +
+  geom_histogram(alpha = 0.4)
+
+```
+
