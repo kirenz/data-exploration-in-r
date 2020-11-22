@@ -108,6 +108,10 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
 \usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{longtable}
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
 
@@ -132,6 +136,7 @@ This book provides an introduction to data exploration in R. To use the code in 
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(tidyverse)}
 \KeywordTok{library}\NormalTok{(skimr)}
+\KeywordTok{library}\NormalTok{(gt)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -205,46 +210,66 @@ Get an overview of the variable \texttt{maritl} and sort the values:
 \begin{Highlighting}[]
 \NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
 \StringTok{  }\KeywordTok{count}\NormalTok{(maritl,}
-  \DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{)}
+  \DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
+\StringTok{  }\KeywordTok{gt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 5 x 2
-##   maritl               n
-##   <chr>            <int>
-## 1 2. Married        2074
-## 2 1. Never Married   648
-## 3 4. Divorced        204
-## 4 5. Separated        55
-## 5 3. Widowed          19
-\end{verbatim}
+\captionsetup[table]{labelformat=empty,skip=1pt}
+\begin{longtable}{lc}
+\toprule
+maritl & n \\ 
+\midrule
+2. Married & 2074 \\ 
+1. Never Married & 648 \\ 
+4. Divorced & 204 \\ 
+5. Separated & 55 \\ 
+3. Widowed & 19 \\ 
+\bottomrule
+\end{longtable}
 
 Get an overview of the combined variables \texttt{maritl} and \texttt{education} and sort the values:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{count}\NormalTok{(maritl, education)}
+\StringTok{  }\KeywordTok{count}\NormalTok{(maritl, education) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
+\StringTok{  }\KeywordTok{gt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 25 x 3
-##    maritl           education              n
-##    <chr>            <chr>              <int>
-##  1 1. Never Married 1. < HS Grad          62
-##  2 1. Never Married 2. HS Grad           219
-##  3 1. Never Married 3. Some College      164
-##  4 1. Never Married 4. College Grad      143
-##  5 1. Never Married 5. Advanced Degree    60
-##  6 2. Married       1. < HS Grad         174
-##  7 2. Married       2. HS Grad           651
-##  8 2. Married       3. Some College      421
-##  9 2. Married       4. College Grad      487
-## 10 2. Married       5. Advanced Degree   341
-## # ... with 15 more rows
-\end{verbatim}
+\captionsetup[table]{labelformat=empty,skip=1pt}
+\begin{longtable}{llc}
+\toprule
+maritl & education & n \\ 
+\midrule
+1. Never Married & 1. < HS Grad & 62 \\ 
+1. Never Married & 2. HS Grad & 219 \\ 
+1. Never Married & 3. Some College & 164 \\ 
+1. Never Married & 4. College Grad & 143 \\ 
+1. Never Married & 5. Advanced Degree & 60 \\ 
+2. Married & 1. < HS Grad & 174 \\ 
+2. Married & 2. HS Grad & 651 \\ 
+2. Married & 3. Some College & 421 \\ 
+2. Married & 4. College Grad & 487 \\ 
+2. Married & 5. Advanced Degree & 341 \\ 
+3. Widowed & 1. < HS Grad & 2 \\ 
+3. Widowed & 2. HS Grad & 8 \\ 
+3. Widowed & 3. Some College & 2 \\ 
+3. Widowed & 4. College Grad & 5 \\ 
+3. Widowed & 5. Advanced Degree & 2 \\ 
+4. Divorced & 1. < HS Grad & 16 \\ 
+4. Divorced & 2. HS Grad & 73 \\ 
+4. Divorced & 3. Some College & 52 \\ 
+4. Divorced & 4. College Grad & 41 \\ 
+4. Divorced & 5. Advanced Degree & 22 \\ 
+5. Separated & 1. < HS Grad & 14 \\ 
+5. Separated & 2. HS Grad & 20 \\ 
+5. Separated & 3. Some College & 11 \\ 
+5. Separated & 4. College Grad & 9 \\ 
+5. Separated & 5. Advanced Degree & 1 \\ 
+\bottomrule
+\end{longtable}
 
 Obtain the sum of a quantitative variable (\texttt{wage}) for the different levels of a categorical variable (\texttt{maritl}):
 
@@ -253,20 +278,23 @@ Obtain the sum of a quantitative variable (\texttt{wage}) for the different leve
 \NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{  }
 \StringTok{  }\KeywordTok{count}\NormalTok{(maritl,}
         \DataTypeTok{wt =}\NormalTok{ wage,}
-        \DataTypeTok{name =} \StringTok{"Sum"}\NormalTok{)}
+        \DataTypeTok{name =} \StringTok{"Sum"}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
+\StringTok{  }\KeywordTok{gt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 5 x 2
-##   maritl               Sum
-##   <chr>              <dbl>
-## 1 1. Never Married  60092.
-## 2 2. Married       246516.
-## 3 3. Widowed         1891.
-## 4 4. Divorced       21044.
-## 5 5. Separated       5567.
-\end{verbatim}
+\captionsetup[table]{labelformat=empty,skip=1pt}
+\begin{longtable}{lr}
+\toprule
+maritl & Sum \\ 
+\midrule
+1. Never Married & 60092.052 \\ 
+2. Married & 246516.180 \\ 
+3. Widowed & 1891.234 \\ 
+4. Divorced & 21044.489 \\ 
+5. Separated & 5566.868 \\ 
+\bottomrule
+\end{longtable}
 
 \hypertarget{total-counts}{%
 \section{Total counts}\label{total-counts}}

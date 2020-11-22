@@ -1,6 +1,6 @@
 book_filename: "exploration"
 delete_merged_file: true
-output_dir: "."
+output_dir: "_book"
 language:
   ui:
     chapter_name: "Chapter "
