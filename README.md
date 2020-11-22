@@ -3,7 +3,7 @@
 
 This is the development website for __Data Exploration in R__.
 
-* Read the online version of the book [here](https://kirenz.github.io/data-exploration/).
+* Read the online version of the book [here](https://kirenz.github.io/data-exploration-in-r/).
 
 #### License
 
