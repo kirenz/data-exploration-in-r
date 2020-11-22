@@ -31,7 +31,7 @@ library(gt)
 ```
 
 
-To illustrate the different data exploration methods, we use the dataset `wage`, which contains wage and other data for a group of 3000 male workers in the Mid-Atlantic region (@James2000).
+To illustrate the different data exploration methods, we use the dataset `wage` from @James2000, which contains wage and other data for a group of 3000 male workers in the Mid-Atlantic region.
 
 ```{r}
 library(tidyverse)

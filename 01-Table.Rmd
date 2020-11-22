@@ -12,7 +12,7 @@ In this chapter you will learn how to do some simple data explorations for categ
 
 ## Simple counts 
 
-Get an overview of the variable `maritl` and sort the values:
+Get an overview of the variable `maritl` and sort the values. We use the package `gt()` to print nice tables:
 
 ```{r count-one}
 
