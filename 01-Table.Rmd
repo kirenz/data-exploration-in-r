@@ -7,12 +7,17 @@ You should use this method if the data is:
 - Categorical
 :::
 
-In this chapter you will learn how to do some simple data explorations for categorical variables using tables (also called  tables) and simple counts. 
+In this chapter you will learn how to do data exploration for categorical variables using tables (also called contingency tables) and counts. 
 
 
-## Simple counts 
+## Counts 
 
-Get an overview of the variable `maritl` and sort the values. We use the package `gt()` to print nice tables:
+Count for one variable:
+
+* Use data `wage_df`.
+* Perform [`count()`](https://dplyr.tidyverse.org/reference/count.html) on `maritl` 
+* Sort the values. 
+* Use [`gt()`](https://gt.rstudio.com) to print the table.
 
 ```{r count-one}
 
@@ -23,7 +28,13 @@ wage_df %>%
 
 ```
 
-Get an overview of the combined variables `maritl` and `education` and sort the values:
+Count two variables:
+
+* Use data `wage_df`.
+* Perform [count()](https://dplyr.tidyverse.org/reference/count.html) on `maritl` and `education`
+* Sort the values. 
+* Use [gt()](https://gt.rstudio.com) to print the table.
+
 
 ```{r count-two}
 
@@ -34,7 +45,7 @@ wage_df %>%
 
 ```
 
-Obtain the sum of a quantitative variable (`wage`) for the different levels of a categorical variable (`maritl`):
+Obtain the sum of a quantitative variable (`wage`) for different levels of a categorical variable (`maritl`) by using `wt =`:
 
 ```{r count-numeric}
 
