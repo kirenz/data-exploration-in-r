@@ -5,12 +5,13 @@
 \documentclass[
 ]{book}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
+\usepackage{amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
 \else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
@@ -82,6 +83,7 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -112,12 +114,15 @@
 \usepackage{booktabs}
 \usepackage{caption}
 \usepackage{longtable}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
 
 \title{Data Exploration in R}
 \author{Prof.~Dr.~Jan Kirenz}
-\date{2020-11-22}
+\date{2020-12-16}
 
 \begin{document}
 \maketitle
@@ -134,8 +139,8 @@ This book provides an introduction to data exploration in R. To use the code in 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\KeywordTok{library}\NormalTok{(gt)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(gt)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -143,9 +148,9 @@ To illustrate the different data exploration methods, we use the dataset \texttt
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
 
-\NormalTok{wage\_df \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/kirenz/datasets/master/wage.csv"}\NormalTok{)}
+\NormalTok{wage\_df }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/kirenz/datasets/master/wage.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -198,19 +203,31 @@ You should use this method if the data is:
   Categorical
 \end{itemize}
 
-In this chapter you will learn how to do some simple data explorations for categorical variables using tables (also called tables) and simple counts.
+In this chapter you will learn how to do data exploration for categorical variables using tables (also called contingency tables) and counts.
 
-\hypertarget{simple-counts}{%
-\section{Simple counts}\label{simple-counts}}
+\hypertarget{counts}{%
+\section{Counts}\label{counts}}
 
-Get an overview of the variable \texttt{maritl} and sort the values. We use the package \texttt{gt()} to print nice tables:
+Count for one variable:
+
+\begin{itemize}
+\tightlist
+\item
+  Use data \texttt{wage\_df}.
+\item
+  Perform \href{https://dplyr.tidyverse.org/reference/count.html}{\texttt{count()}} on \texttt{maritl}
+\item
+  Sort the values.
+\item
+  Use \href{https://gt.rstudio.com}{\texttt{gt()}} to print the table.
+\end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{count}\NormalTok{(maritl,}
-        \DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{gt}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(maritl,}
+        \AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -227,14 +244,26 @@ maritl & n \\
 \bottomrule
 \end{longtable}
 
-Get an overview of the combined variables \texttt{maritl} and \texttt{education} and sort the values:
+Count two variables:
+
+\begin{itemize}
+\tightlist
+\item
+  Use data \texttt{wage\_df}.
+\item
+  Perform \href{https://dplyr.tidyverse.org/reference/count.html}{count()} on \texttt{maritl} and \texttt{education}
+\item
+  Sort the values.
+\item
+  Use \href{https://gt.rstudio.com}{gt()} to print the table.
+\end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{count}\NormalTok{(maritl, education,}
-        \DataTypeTok{sort=} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{gt}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(maritl, education,}
+        \AttributeTok{sort=} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -271,15 +300,15 @@ maritl & education & n \\
 \bottomrule
 \end{longtable}
 
-Obtain the sum of a quantitative variable (\texttt{wage}) for the different levels of a categorical variable (\texttt{maritl}):
+Obtain the sum of a quantitative variable (\texttt{wage}) for different levels of a categorical variable (\texttt{maritl}) by using \texttt{wt\ =}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{  }
-\StringTok{  }\KeywordTok{count}\NormalTok{(maritl,}
-        \DataTypeTok{wt =}\NormalTok{ wage,}
-        \DataTypeTok{name =} \StringTok{"Sum"}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{gt}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%}  
+  \FunctionTok{count}\NormalTok{(maritl,}
+        \AttributeTok{wt =}\NormalTok{ wage,}
+        \AttributeTok{name =} \StringTok{"Sum"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gt}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -303,7 +332,7 @@ Total counts are an useful way to represent the observations that fall into each
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{tab \textless{}{-}}\StringTok{ }\KeywordTok{table}\NormalTok{(wage\_df}\OperatorTok{$}\NormalTok{jobclass, wage\_df}\OperatorTok{$}\NormalTok{race)}
+\NormalTok{tab }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(wage\_df}\SpecialCharTok{$}\NormalTok{jobclass, wage\_df}\SpecialCharTok{$}\NormalTok{race)}
 \NormalTok{tab}
 \end{Highlighting}
 \end{Shaded}
@@ -325,7 +354,7 @@ The following code generates tables of \emph{joint} proportions:
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# joint proportions}
-\KeywordTok{prop.table}\NormalTok{(tab) }
+\FunctionTok{prop.table}\NormalTok{(tab) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -348,7 +377,7 @@ The following code generates tables of \emph{conditional} proportions:
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# conditional on columns}
-\KeywordTok{prop.table}\NormalTok{(tab, }\DecValTok{2}\NormalTok{)  }
+\FunctionTok{prop.table}\NormalTok{(tab, }\DecValTok{2}\NormalTok{)  }
 \end{Highlighting}
 \end{Shaded}
 
@@ -377,7 +406,7 @@ Now we want to obtain the probability that workers have a certain race, given th
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# conditional on rows}
-\KeywordTok{prop.table}\NormalTok{(tab, }\DecValTok{1}\NormalTok{)  }
+\FunctionTok{prop.table}\NormalTok{(tab, }\DecValTok{1}\NormalTok{)  }
 \end{Highlighting}
 \end{Shaded}
 
@@ -405,7 +434,7 @@ Finally, let's test the hypothesis whether the variable \texttt{jobclass} is ind
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{chisq.test}\NormalTok{(tab)  }
+\FunctionTok{chisq.test}\NormalTok{(tab)  }
 \end{Highlighting}
 \end{Shaded}
 
@@ -436,10 +465,10 @@ Basic plot:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(jobclass, education)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bin2d}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale\_fill\_gradient}\NormalTok{(}\DataTypeTok{low =} \StringTok{"gray85"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"steelblue"}\NormalTok{) }
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(jobclass, education)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bin2d}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{low =} \StringTok{"gray85"}\NormalTok{, }\AttributeTok{high =} \StringTok{"steelblue"}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -449,12 +478,12 @@ Plot with some adjustments:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(jobclass, education)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bin2d}\NormalTok{(}\DataTypeTok{binwidth =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme\_classic}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{scale\_fill\_gradient}\NormalTok{(}\DataTypeTok{low =} \StringTok{"gray85"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"steelblue"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"number of\textbackslash{} workers"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Education"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"Job class"}\NormalTok{)}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(jobclass, education)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bin2d}\NormalTok{(}\AttributeTok{binwidth =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{low =} \StringTok{"gray85"}\NormalTok{, }\AttributeTok{high =} \StringTok{"steelblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{fill =} \StringTok{"number of }\SpecialCharTok{\textbackslash{}n}\StringTok{ workers"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Education"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Job class"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -478,9 +507,9 @@ In this chapter you will learn how to do some simple data explorations for categ
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ maritl)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ maritl)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -496,9 +525,9 @@ Absolute values:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ maritl, }\DataTypeTok{fill =}\NormalTok{ education)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ maritl, }\AttributeTok{fill =}\NormalTok{ education)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -508,15 +537,15 @@ Relative values:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ maritl, }\DataTypeTok{fill =}\NormalTok{ education)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{(}\DataTypeTok{position =} \StringTok{"fill"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Marital Status"}\NormalTok{, }\StringTok{"Overview"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{" Marital Status"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Number of People"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme\_classic}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale\_fill\_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Blues"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element\_blank}\NormalTok{())}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ maritl, }\AttributeTok{fill =}\NormalTok{ education)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"fill"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Marital Status"}\NormalTok{, }\StringTok{"Overview"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{" Marital Status"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Number of People"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Blues"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
@@ -529,9 +558,9 @@ Basic plot:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ maritl, }\DataTypeTok{fill =}\NormalTok{ education)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{( }\DataTypeTok{position =} \StringTok{"dodge"}\NormalTok{) }
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ maritl, }\AttributeTok{fill =}\NormalTok{ education)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -541,15 +570,15 @@ Plot with some adjustments:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ maritl, }\DataTypeTok{fill =}\NormalTok{ education)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{( }\DataTypeTok{position =} \StringTok{"dodge"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Marital Status"}\NormalTok{, }\StringTok{"Overview"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{" Marital Status"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Number of People"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme\_classic}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale\_fill\_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Blues"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element\_blank}\NormalTok{())}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ maritl, }\AttributeTok{fill =}\NormalTok{ education)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Marital Status"}\NormalTok{, }\StringTok{"Overview"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{" Marital Status"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Number of People"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Blues"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
@@ -562,10 +591,10 @@ Basic plot:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ maritl)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{(}\DataTypeTok{position =} \StringTok{"dodge"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet\_wrap}\NormalTok{(}\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{education)}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ maritl)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ education)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -585,18 +614,18 @@ Horizontal and vertical justification have the same parameterisation, either a s
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ maritl)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{(}\DataTypeTok{position =} \StringTok{"dodge"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet\_wrap}\NormalTok{(}\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{education) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Marital Status"}\NormalTok{, }\StringTok{"Overview"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{" Marital Status"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Number of People"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme\_classic}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element\_blank}\NormalTok{()) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element\_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }
-                                   \DataTypeTok{vjust =} \FloatTok{0.5}\NormalTok{, }
-                                   \DataTypeTok{hjust=}  \DecValTok{1}\NormalTok{))}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ maritl)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ education) }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Marital Status"}\NormalTok{, }\StringTok{"Overview"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{" Marital Status"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Number of People"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }
+                                   \AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }
+                                   \AttributeTok{hjust=}  \DecValTok{1}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -623,9 +652,9 @@ Basic plot:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wage)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_histogram}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ wage)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -638,9 +667,9 @@ Adjust number of bins:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wage)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_histogram}\NormalTok{(}\DataTypeTok{bins =} \DecValTok{20}\NormalTok{)}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ wage)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{20}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -653,9 +682,9 @@ Instead of using bins, you can also change the binwidth:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wage)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_histogram}\NormalTok{(}\DataTypeTok{binwidth =} \DecValTok{10}\NormalTok{)}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ wage)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{10}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -669,10 +698,10 @@ Instead of using bins, you can also change the binwidth:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wage)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_histogram}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet\_wrap}\NormalTok{( }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{education)}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ wage)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{( }\SpecialCharTok{\textasciitilde{}}\NormalTok{ education)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -683,9 +712,9 @@ Instead of using bins, you can also change the binwidth:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wage, }\DataTypeTok{fill =}\NormalTok{ education)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_histogram}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.4}\NormalTok{)}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ wage, }\AttributeTok{fill =}\NormalTok{ education)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -709,9 +738,9 @@ In this chapter you will learn how to do some simple data explorations for numer
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wage)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_density}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ wage)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -724,9 +753,9 @@ Combine your numeric variable with a categorical variable:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wage, }\DataTypeTok{fill =}\NormalTok{ education)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom\_density}\NormalTok{() }
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ wage, }\AttributeTok{fill =}\NormalTok{ education)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_density}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 
@@ -736,10 +765,10 @@ Make some adjustments:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wage, }\DataTypeTok{fill =}\NormalTok{ education)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_density}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale\_fill\_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Blues"}\NormalTok{)}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ wage, }\AttributeTok{fill =}\NormalTok{ education)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Blues"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -765,9 +794,9 @@ In this chapter you will learn how to do some simple data explorations for categ
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{( }\DataTypeTok{x =} \StringTok{""}\NormalTok{, }\DataTypeTok{y=}\NormalTok{ wage)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom\_boxplot}\NormalTok{() }
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{( }\AttributeTok{x =} \StringTok{""}\NormalTok{, }\AttributeTok{y=}\NormalTok{ wage)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_boxplot}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 
@@ -778,9 +807,9 @@ In this chapter you will learn how to do some simple data explorations for categ
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ education, }\DataTypeTok{y =}\NormalTok{ wage)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom\_boxplot}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ education, }\AttributeTok{y =}\NormalTok{ wage)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_boxplot}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -802,9 +831,9 @@ You should use this method if the data is:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ age, }\DataTypeTok{y =}\NormalTok{ wage)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_point}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age, }\AttributeTok{y =}\NormalTok{ wage)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -814,9 +843,9 @@ Use jitter
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ age, }\DataTypeTok{y =}\NormalTok{ wage)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_jitter}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age, }\AttributeTok{y =}\NormalTok{ wage)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -827,9 +856,9 @@ Use jitter
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ age, }\DataTypeTok{y =}\NormalTok{ wage, }\DataTypeTok{color =}\NormalTok{ jobclass)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_jitter}\NormalTok{()}
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age, }\AttributeTok{y =}\NormalTok{ wage, }\AttributeTok{color =}\NormalTok{ jobclass)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -840,12 +869,12 @@ Use jitter
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{wage\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{  }
-\StringTok{  }\KeywordTok{group\_by}\NormalTok{(year) }\OperatorTok{\%\textgreater{}\%}\StringTok{  }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{mean\_wage =} \KeywordTok{mean}\NormalTok{(wage, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)) }\OperatorTok{\%\textgreater{}\%}\StringTok{  }
-\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ mean\_wage)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom\_line}\NormalTok{() }
+\NormalTok{wage\_df }\SpecialCharTok{\%\textgreater{}\%}  
+  \FunctionTok{group\_by}\NormalTok{(year) }\SpecialCharTok{\%\textgreater{}\%}  
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{mean\_wage =} \FunctionTok{mean}\NormalTok{(wage, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}  
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ year, }\AttributeTok{y =}\NormalTok{ mean\_wage)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 

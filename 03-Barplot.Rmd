@@ -59,18 +59,17 @@ Basic plot:
 
 wage_df %>% 
   ggplot(aes(x = maritl, fill = education)) +
-  geom_bar( position = "dodge") 
+  geom_bar(position = "dodge") 
 
 ```
 
 Plot with some adjustments:
 
-
 ```{r bar-side-adj}
 
 wage_df %>% 
   ggplot(aes(x = maritl, fill = education)) +
-  geom_bar( position = "dodge") +
+  geom_bar(position = "dodge") +
   ggtitle("Marital Status", "Overview") +
   xlab(" Marital Status") +
   ylab("Number of People") +

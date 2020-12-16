@@ -1,5 +1,5 @@
 tables
-simple-counts
+counts
 total-counts
 joint-proportions
 conditional-proportions-columns
